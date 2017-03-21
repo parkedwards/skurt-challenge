@@ -1,12 +1,9 @@
 import 'babel-polyfill';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route } from 'react-router';
-import Dashboard from './views/Dashboard';
+import { render } from 'react-dom';
+import { Router, browserHistory } from 'react-router';
+import routes from './routes';
 
-ReactDOM.render(
-  <Router>
-    <Route path='/' component={Dashboard}/>
-  </Router>
-  , document.getElementById('content')
-);
+render(
+  <Router history={browserHistory} routes={routes} />,
+  document.querySelector('#content'));

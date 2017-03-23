@@ -1,7 +1,9 @@
 import moment from 'moment';
 import { APP_ID, API_KEY } from './config';
 
-export const DELAY_THRESHOLD = 0; // adjust to change the flagging logic
+// Delay threshold in minutes
+// adjust to change the flagging logic
+export const DELAY_THRESHOLD = 0;
 
 
 // Helper function to parse the user's inputted flight code

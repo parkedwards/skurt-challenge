@@ -3,11 +3,16 @@ import EntryForm from './EntryForm';
 
 const Lookup = ({ onFlightSubmit }) => {
   return (
-    <div>
-      <h1>This is the lookup view!</h1>
+    <div style={style}>
+      <h2>Search your Flight</h2>
       <EntryForm onSubmit={onFlightSubmit} />
     </div>
   );
 };
 
 export default Lookup;
+
+const style = {
+  margin: '0 auto',
+  width: '50%'
+};

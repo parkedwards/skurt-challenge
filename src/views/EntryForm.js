@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 const EntryForm = ({ onSubmit }) => {
   let input;
@@ -9,14 +10,21 @@ const EntryForm = ({ onSubmit }) => {
       if (!input.value.trim()) {
         return;
       }
-      onSubmit(input.value);
+      onSubmit(input.value, browserHistory);
       input.value = '';
     }}>
       
-      <input ref={(node) => {
-        input = node;
-      }} placeholder="Enter Flight Number" />
-      <button type="submit">Find Flight Info</button>
+      <div className='form-group'>
+        <input
+          ref={(node) => { input = node; }}
+          placeholder='Enter Flight Number'
+          className='form-control'
+        />
+      </div>
+
+      <div className='form-group'>
+        <button type='submit' className='btn btn-warning'>Find Flight Info</button>
+      </div>
       
     </form>
   );

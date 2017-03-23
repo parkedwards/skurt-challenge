@@ -1,55 +1,46 @@
 import React, { Component } from 'react';
-import fetch from 'isomorphic-fetch';
-import moment from 'moment';
 import $ from 'jquery';
 
-const APP_ID = '91b929e6';
-const API_KEY = '2eebba75c50ce13c31b9ef0b331fb93a';
-const URL = 'https://api.flightstats.com/flex/flightstatus/rest/v2/json/flight/tracks/AA/100/dep/2017/3/22?appId=91b929e6&appKey=2eebba75c50ce13c31b9ef0b331fb93a&utc=false&includeFlightPlan=false&maxPositions=2';
-
-const parseFlightCode = (flightCode) => {
-  let airlineCode = '';
-  let flightNum = '';
-
-  for (let i = 0; i < flightCode.length; i++) {
-    if (isNaN(flightCode[i])) airlineCode += flightCode[i];
-    else flightNum += flightCode[i];
-  }
-  return `${airlineCode}/${flightNum}`;
-};
-
-const getURL = (flightCode, date) => {
-  const parsedFlightCode = parseFlightCode(flightCode);
-  return `https://api.flightstats.com/flex/flightstatus/rest/v2/jsonp/flight/tracks/${parsedFlightCode}/dep/2017/3/22?appId=${APP_ID}&appKey=${API_KEY}&utc=false&includeFlightPlan=false&maxPositions=2`;
-};
+import {
+  composeURL,
+  responseReducer
+} from '../utils/utilFunctions';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isDelayed: false,
-      timeDelayed: 0,
-      test: null
+      timeDelayed: 0
     };
     this.onFlightSubmit = this.onFlightSubmit.bind(this);
   }
 
-  onFlightSubmit(flightCode) {
+  onFlightSubmit(flightCode, browserHistory) {
     $.ajax({
-      url: getURL(flightCode),
+      url: composeURL(flightCode),
       dataType: 'JSONP',
       jsonCallback: 'callback',
-      type: 'GET',
-      success: function (data) {
-        console.log(data);
-      }
-    });
+      type: 'GET'
+    })
+      .done((data) => {
+        const { error, flightStatuses } = data;
 
+        if (error || !flightStatuses.length) {
+          browserHistory.push('error'); // error or no flights
+        } else {
+          // responseReducer() returns a copy of state to be used in setState
+          this.setState(responseReducer(data), () => browserHistory.push('results'));
+        }
+      })
+      .fail(() => {
+        browserHistory.push('error');
+      });
   }
 
   render() {
     return (
-      <div>
+      <div style={style}>
         <img src={'../images/logo.png'} />
 
         {this.props.children && React.cloneElement(this.props.children, {
@@ -63,3 +54,7 @@ class Dashboard extends Component {
 }
 
 export default Dashboard;
+
+const style = {
+  textAlign: 'center'
+};

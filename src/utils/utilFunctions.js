@@ -3,7 +3,7 @@ import { APP_ID, API_KEY } from './config';
 
 // Delay threshold in minutes
 // adjust to change the flagging logic
-export const DELAY_THRESHOLD = 0;
+export const DELAY_THRESHOLD = 10;
 
 
 // Helper function to parse the user's inputted flight code

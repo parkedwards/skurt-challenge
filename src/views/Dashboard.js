@@ -7,7 +7,7 @@ import {
 } from '../utils/utilFunctions';
 
 class Dashboard extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       isDelayed: false,
@@ -16,7 +16,7 @@ class Dashboard extends Component {
     this.onFlightSubmit = this.onFlightSubmit.bind(this);
   }
 
-  onFlightSubmit(flightCode, browserHistory) {
+  onFlightSubmit (flightCode, browserHistory) {
     $.ajax({
       url: composeURL(flightCode),
       dataType: 'JSONP',
@@ -38,7 +38,7 @@ class Dashboard extends Component {
       });
   }
 
-  render() {
+  render () {
     return (
       <div style={style}>
         <img src={'../images/logo.png'} />

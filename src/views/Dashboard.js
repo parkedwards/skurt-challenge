@@ -25,7 +25,6 @@ class Dashboard extends Component {
     })
       .done((data) => {
         const { error, flightStatuses } = data;
-
         if (error || !flightStatuses.length) {
           browserHistory.push('error'); // error or no flights
         } else {

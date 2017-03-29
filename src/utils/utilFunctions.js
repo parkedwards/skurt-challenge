@@ -36,12 +36,19 @@ const parseResponse = (obj) => {
   const len = flightStatuses.length;
   const lastFlight = flightStatuses[len - 1];
 
-  const {
+  let {
     estimatedGateArrival,
     scheduledGateArrival } = lastFlight.operationalTimes;
 
+  // if API hasn't provided an estimated arrival time yet
+  // set estimated = schedule
+  if (!estimatedGateArrival) {
+    estimatedGateArrival = scheduledGateArrival;
+  }
+
   const scheduled = new Date(scheduledGateArrival.dateLocal); // scheduled time
   const estimated = new Date(estimatedGateArrival.dateLocal); // estimated time
+
   const diffMs = (scheduled - estimated); // diff in miliseconds
   const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
 

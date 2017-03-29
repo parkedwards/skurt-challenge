@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { EntryForm } from '../src/views';
+import { EntryForm } from '../../src/views';
 
 const setup = () => {
   const props = {

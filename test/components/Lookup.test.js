@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Lookup } from '../src/views';
+import { Lookup } from '../../src/views';
 
 const setup = () => {
   const props = {

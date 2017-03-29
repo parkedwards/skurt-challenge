@@ -6,4 +6,5 @@ import routes from './routes';
 
 render(
   <Router history={browserHistory} routes={routes} />,
-  document.querySelector('#content'));
+  document.querySelector('#content')
+);

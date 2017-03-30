@@ -59,4 +59,9 @@ describe('Component: <Results /> WITH DELAY', () => {
     expect(wrapper.find('Link')).toHaveLength(1);
     expect(LinkProps.to).toEqual('/');
   });
-})
+
+  test('should render a span tag', () => {
+    expect(wrapper.find('span')).toHaveLength(1);
+    expect(wrapper.find('span').prop('style')).toMatchSnapshot();
+  })
+});

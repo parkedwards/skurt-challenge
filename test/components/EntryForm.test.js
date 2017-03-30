@@ -19,6 +19,12 @@ describe('Component: <EntryForm />', () => {
     expect(wrapper.find('form')).toHaveLength(1);
   });
 
+  test('form element should have one input + button descendent each', () => {
+    expect(wrapper.find('form').children()).toHaveLength(2);
+    expect(wrapper.find('form').childAt(0).childAt(0).type()).toEqual('input');
+    expect(wrapper.find('form').childAt(1).childAt(0).type()).toEqual('button');
+  });
+
   test('form element should have onSubmit handler', () => {
     expect(wrapper.find('form').props().onSubmit).toBeTruthy();
   })
@@ -27,6 +33,10 @@ describe('Component: <EntryForm />', () => {
     wrapper.find('input').node.value = 'test';
     wrapper.find('form').props().onSubmit({ preventDefault: () => { } });
     expect(props.onSubmit.mock.calls.length).toBe(1);
+    
+    wrapper.find('input').node.value = 'test2';
+    wrapper.find('form').props().onSubmit({ preventDefault: () => { } });
+    expect(props.onSubmit.mock.calls.length).toBe(2);
   });
 
   test('should render input element within form', () => {
